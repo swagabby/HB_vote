@@ -1,74 +1,94 @@
-
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>這次的看板，你說了算</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --brand:#00D2BE;--brand-subtle:rgba(0,210,190,0.12);
+  --brand:#00D2BE;--brand-subtle:rgba(0,210,190,0.12);--brand-mid:rgba(0,210,190,0.25);
   --creator:#FFD100;
   --surface:#191919;--container:#232323;--container-v:rgba(71,71,71,0.4);
-  --outline:#474747;--outline-v:rgba(71,71,71,0.4);
+  --outline-v:rgba(71,71,71,0.4);
   --text-1:#FFFFFF;--text-2:#C8C8C8;--text-3:#9B9B9B;--text-off:rgba(255,255,255,0.4);
-  --sp2:4px;--sp3:8px;--sp4:12px;--sp5:16px;--sp6:24px;--sp7:32px;--sp8:40px;--sp9:48px;
+  --sp2:4px;--sp3:8px;--sp4:12px;--sp5:16px;--sp6:24px;--sp8:40px;--sp9:48px;
   --r-xs:4px;--r-s:8px;--r-m:12px;--r-full:1000px;
   --f-xs:12px;--f-s:14px;--f-m:16px;--f-l:18px;--f-xl:20px;--f-xxl:22px;
 }
-body{background:var(--surface);color:var(--text-1);font-family:'Noto Sans TC','PingFang TC',sans-serif;font-size:var(--f-s);font-weight:400;}
-.page{background:var(--surface);padding-bottom:var(--sp9);}
+html,body{min-height:100%;background:var(--surface);}
+body{color:var(--text-1);font-family:'Noto Sans TC','PingFang TC',sans-serif;font-size:var(--f-s);font-weight:400;display:flex;justify-content:center;}
+.page{width:100%;max-width:390px;background:var(--surface);min-height:100vh;padding-bottom:var(--sp9);}
 
-.hero{background:var(--container);border-bottom:1px solid var(--outline-v);padding:var(--sp6) var(--sp5) var(--sp7);text-align:center;position:relative;}
+.lv-tabbar{background:var(--container);border-bottom:1px solid var(--outline-v);padding:0 var(--sp5);display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;}
+.lv-tabbar::-webkit-scrollbar{display:none;}
+.lv-tab{flex-shrink:0;padding:var(--sp3) var(--sp4);font-size:var(--f-xs);color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;white-space:nowrap;font-weight:400;}
+.lv-tab:hover{color:var(--text-2);}
+.lv-tab.active{color:var(--brand);border-bottom-color:var(--brand);font-weight:600;}
+
+.hero{background:var(--container);border-bottom:1px solid var(--outline-v);padding:var(--sp6) var(--sp5);text-align:center;position:relative;}
 .hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100px;height:2px;background:var(--brand);border-radius:var(--r-full);}
 .live-badge{display:inline-flex;align-items:center;gap:var(--sp2);background:rgba(0,210,190,0.1);border:1px solid rgba(0,210,190,0.3);border-radius:var(--r-full);padding:2px var(--sp4);font-size:var(--f-xs);color:var(--brand);font-weight:600;margin-bottom:var(--sp4);letter-spacing:0.04em;}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:blink 1.5s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-
 .hero-eyebrow{font-size:var(--f-xs);color:var(--text-3);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:var(--sp3);}
 .hero-title{font-size:28px;font-weight:600;color:var(--text-1);line-height:1.2;margin-bottom:var(--sp4);}
 .hero-title em{font-style:normal;color:var(--brand);}
 .hero-sub{font-size:var(--f-xs);color:var(--text-3);line-height:1.7;margin-bottom:var(--sp6);}
-
 .cd-row{display:flex;justify-content:center;gap:var(--sp3);}
 .cd-box{background:var(--surface);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp3) var(--sp4);text-align:center;min-width:52px;}
 .cd-n{font-size:var(--f-xxl);font-weight:600;color:var(--brand);line-height:1;}
 .cd-l{font-size:10px;color:var(--text-3);letter-spacing:0.06em;margin-top:2px;}
 
-.sec{padding:var(--sp6) var(--sp5) 0;}
-.sec-lbl{font-size:var(--f-xs);font-weight:600;color:var(--text-3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--sp4);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp3);padding:var(--sp5) var(--sp5) 0;}
+.id-card{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-m);padding:var(--sp4);display:flex;flex-direction:column;gap:var(--sp4);height:100%;}
+.id-lv{font-size:var(--f-xs);color:var(--brand);font-weight:600;letter-spacing:0.06em;}
+.id-name{font-size:var(--f-s);font-weight:600;color:var(--text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ticket-block{background:var(--brand-subtle);border:1px solid var(--brand-mid);border-radius:var(--r-s);padding:var(--sp3) var(--sp4);}
+.ticket-top{display:flex;align-items:baseline;gap:4px;margin-bottom:var(--sp2);}
+.ticket-remain{font-size:36px;font-weight:600;color:var(--creator);line-height:1;}
+.ticket-slash{font-size:var(--f-l);color:var(--text-3);margin:0 2px;}
+.ticket-total{font-size:var(--f-l);font-weight:600;color:var(--text-2);}
+.ticket-lbl{font-size:var(--f-xs);color:var(--text-3);}
+.ticket-bar{background:rgba(255,255,255,0.1);border-radius:var(--r-full);height:3px;overflow:hidden;margin-top:var(--sp2);}
+.ticket-fill{height:100%;border-radius:var(--r-full);background:var(--brand);transition:width 0.3s ease;}
 
-.id-card{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-m);padding:var(--sp5);display:flex;align-items:center;gap:var(--sp4);}
-.lv-badge{width:48px;height:48px;border-radius:50%;border:2px solid var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--brand-subtle);flex-shrink:0;}
-.lv-n{font-size:var(--f-xl);font-weight:600;color:var(--brand);line-height:1;}
-.lv-l{font-size:9px;color:var(--brand);opacity:0.7;letter-spacing:0.04em;}
-.id-info{flex:1;min-width:0;}
-.id-name{font-size:var(--f-m);font-weight:600;margin-bottom:2px;}
-.id-role{font-size:var(--f-xs);color:var(--text-3);}
-.vote-chip{background:var(--container-v);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp3) var(--sp4);text-align:center;flex-shrink:0;}
-.vc-n{font-size:var(--f-xxl);font-weight:600;color:var(--creator);line-height:1;}
-.vc-l{font-size:10px;color:var(--text-3);margin-top:1px;}
-.lv-row{margin-top:var(--sp3);display:flex;align-items:center;gap:var(--sp3);}
-.lv-row span{font-size:var(--f-xs);color:var(--text-3);}
-
+.search-card{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-m);padding:var(--sp4);display:flex;flex-direction:column;gap:var(--sp3);height:100%;}
+.search-title{font-size:var(--f-xs);font-weight:600;color:var(--text-1);letter-spacing:0.04em;}
+.search-hint{font-size:11px;color:var(--text-3);margin-top:auto;}
 .input-wrap{position:relative;}
-.field{width:100%;background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) 36px var(--sp4) var(--sp5);font-size:var(--f-s);color:var(--text-1);font-family:'Noto Sans TC',sans-serif;outline:none;transition:border-color 0.18s;}
+.field{width:100%;background:var(--surface);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp3) 32px var(--sp3) var(--sp4);font-size:var(--f-s);color:var(--text-1);font-family:'Noto Sans TC',sans-serif;outline:none;transition:border-color 0.18s;}
 .field:focus{border-color:var(--brand);}
 .field::placeholder{color:var(--text-3);}
-.field-icon{position:absolute;right:var(--sp4);top:50%;transform:translateY(-50%);color:var(--text-3);font-size:15px;pointer-events:none;}
-
-.dropdown{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);overflow:hidden;margin-top:var(--sp2);display:none;}
+.field-icon{position:absolute;right:var(--sp3);top:50%;transform:translateY(-50%);color:var(--text-3);font-size:14px;pointer-events:none;}
+.drop-anchor{position:relative;}
+.dropdown{position:absolute;left:0;right:0;background:var(--container);border:1px solid var(--brand-mid);border-radius:var(--r-s);overflow:hidden;margin-top:var(--sp2);display:none;z-index:50;}
 .dropdown.open{display:block;}
-.drop-item{display:flex;align-items:center;gap:var(--sp4);padding:var(--sp4) var(--sp5);cursor:pointer;border-bottom:1px solid var(--outline-v);transition:background 0.15s;}
+.drop-item{display:flex;align-items:center;gap:var(--sp3);padding:var(--sp3) var(--sp4);cursor:pointer;border-bottom:1px solid var(--outline-v);transition:background 0.15s;}
 .drop-item:last-child{border-bottom:none;}
 .drop-item:hover{background:rgba(0,210,190,0.06);}
 .drop-item.selected{background:rgba(0,210,190,0.08);cursor:default;}
-.av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--f-xs);font-weight:600;flex-shrink:0;}
-.di-info{flex:1;min-width:0;}
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;}
 .di-name{font-size:var(--f-s);font-weight:600;}
-.di-id{font-size:var(--f-xs);color:var(--text-3);}
-.di-followers{font-size:11px;color:var(--text-3);margin-top:1px;}
-.di-check{font-size:13px;color:var(--brand);flex-shrink:0;width:20px;text-align:center;}
+.di-sub{font-size:11px;color:var(--text-3);}
+.di-check{font-size:13px;color:var(--brand);flex-shrink:0;width:18px;text-align:center;}
 
-.vote-list{display:flex;flex-direction:column;gap:var(--sp3);}
-.vi{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) var(--sp5);display:flex;align-items:center;gap:var(--sp4);}
-.vi.active{border-color:rgba(0,210,190,0.35);}
+.locked{position:absolute;inset:0;background:rgba(25,25,25,0.93);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:var(--sp6);z-index:10;border-radius:var(--r-m);}
+.lo-ico{font-size:2rem;margin-bottom:var(--sp4);}
+.lo-t{font-size:var(--f-m);font-weight:600;color:var(--brand);margin-bottom:var(--sp3);}
+.lo-d{font-size:var(--f-xs);color:var(--text-3);line-height:1.8;}
+
+.vote-section{padding:var(--sp4) var(--sp5) 0;}
+.vote-box{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-m);overflow:hidden;}
+.vote-box-header{padding:var(--sp3) var(--sp5);border-bottom:1px solid var(--outline-v);display:flex;align-items:center;justify-content:space-between;}
+.vote-box-title{font-size:var(--f-xs);font-weight:600;color:var(--text-3);letter-spacing:0.08em;text-transform:uppercase;}
+.vote-box-count{font-size:var(--f-xs);color:var(--text-3);}
+.vote-list{display:flex;flex-direction:column;}
+.vi{padding:var(--sp4) var(--sp5);display:flex;align-items:center;gap:var(--sp4);border-bottom:1px solid var(--outline-v);}
+.vi:last-child{border-bottom:none;}
+.vi.active{background:rgba(0,210,190,0.04);}
 .vi-info{flex:1;min-width:0;}
 .vi-name{font-size:var(--f-s);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .vi-id{font-size:var(--f-xs);color:var(--text-3);}
@@ -79,55 +99,52 @@ body{background:var(--surface);color:var(--text-1);font-family:'Noto Sans TC','P
 .vn{font-size:var(--f-xxl);font-weight:600;color:var(--creator);min-width:22px;text-align:center;}
 .rm-btn{width:22px;height:22px;border-radius:50%;border:none;background:rgba(207,4,4,0.12);color:#CF7070;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:var(--sp2);}
 .rm-btn:hover{background:rgba(207,4,4,0.22);}
+.empty-hint{padding:var(--sp8) var(--sp5);text-align:center;color:var(--text-3);font-size:var(--f-xs);}
 
-.remain-block{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) var(--sp5);}
-.rb-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--sp3);}
-.rb-lbl{font-size:var(--f-xs);color:var(--text-3);}
-.rb-val{font-size:var(--f-xl);font-weight:600;color:var(--creator);}
-.rb-total{font-size:var(--f-xs);color:var(--text-3);}
-.track{background:var(--outline-v);border-radius:var(--r-full);height:4px;overflow:hidden;}
-.fill{height:100%;border-radius:var(--r-full);background:var(--brand);transition:width 0.3s ease;}
-.empty-hint{background:var(--container);border:1px dashed var(--outline-v);border-radius:var(--r-s);padding:var(--sp8) var(--sp5);text-align:center;color:var(--text-3);font-size:var(--f-xs);}
+.submit-wrap{padding:var(--sp4) var(--sp5) 0;}
+.submit-btn{width:100%;padding:15px var(--sp5);background:var(--brand);border:none;border-radius:var(--r-m);color:#191919;font-family:'Noto Sans TC',sans-serif;font-size:var(--f-l);font-weight:600;cursor:pointer;transition:opacity 0.15s,transform 0.1s;letter-spacing:0.04em;}
+.submit-btn:hover:not(:disabled){opacity:0.88;transform:translateY(-1px);}
+.submit-btn:disabled{background:rgba(71,71,71,0.5);color:var(--text-off);cursor:not-allowed;transform:none;}
 
-.submit-btn{width:100%;padding:var(--sp4) var(--sp5);background:var(--brand);border:none;border-radius:var(--r-s);color:#191919;font-family:'Noto Sans TC',sans-serif;font-size:var(--f-m);font-weight:600;cursor:pointer;transition:opacity 0.15s,transform 0.1s;margin-top:var(--sp4);}
-.submit-btn:hover:not(:disabled){opacity:0.85;transform:translateY(-1px);}
-.submit-btn:disabled{background:var(--outline-v);color:var(--text-off);cursor:not-allowed;transform:none;}
+.divider{height:1px;background:var(--outline-v);margin:var(--sp5) var(--sp5) 0;}
 
-.locked{position:absolute;inset:0;background:rgba(25,25,25,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:var(--sp6);z-index:10;border-radius:var(--r-m);}
-.lo-ico{font-size:2rem;margin-bottom:var(--sp4);}
-.lo-t{font-size:var(--f-m);font-weight:600;color:var(--brand);margin-bottom:var(--sp3);}
-.lo-d{font-size:var(--f-xs);color:var(--text-3);line-height:1.8;}
-
-.divider{height:1px;background:var(--outline-v);margin:var(--sp6) var(--sp5) 0;}
-
-.lb-first{background:var(--container);border:1px solid rgba(0,210,190,0.4);border-radius:var(--r-m);padding:var(--sp5);display:flex;align-items:center;gap:var(--sp5);margin-bottom:var(--sp4);position:relative;overflow:hidden;}
-.lb-first::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--brand);}
-.lb-first-medal{font-size:28px;flex-shrink:0;}
-.lb-first-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--f-m);font-weight:600;flex-shrink:0;border:2px solid rgba(0,210,190,0.4);}
+.lb-section{padding:var(--sp5) var(--sp5) 0;}
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp4);}
+.sec-lbl{font-size:var(--f-xs);font-weight:600;color:var(--text-3);letter-spacing:0.1em;text-transform:uppercase;}
+.sec-sub{font-size:11px;color:var(--text-3);}
+.lb-first{background:var(--container);border:2px solid rgba(0,210,190,0.5);border-radius:var(--r-m);padding:var(--sp5);margin-bottom:var(--sp4);position:relative;overflow:hidden;}
+.lb-first::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--brand);}
+.lb-first-top{display:flex;align-items:center;gap:var(--sp4);margin-bottom:var(--sp4);}
+.lb-first-medal{font-size:32px;flex-shrink:0;}
+.lb-first-av{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--f-xl);font-weight:600;flex-shrink:0;border:2px solid rgba(0,210,190,0.4);}
 .lb-first-info{flex:1;min-width:0;}
-.lb-first-name{font-size:var(--f-l);font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-first-name{font-size:var(--f-xxl);font-weight:600;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .lb-first-id{font-size:var(--f-xs);color:var(--text-3);}
-.lb-first-right{text-align:right;flex-shrink:0;}
-.lb-first-votes{font-size:28px;font-weight:600;color:var(--creator);line-height:1;}
-.lb-first-lbl{font-size:var(--f-xs);color:var(--text-3);margin-top:2px;}
-
+.lb-votes-row{display:flex;align-items:baseline;gap:var(--sp2);margin-bottom:var(--sp3);}
+.lb-first-votes{font-size:40px;font-weight:600;color:var(--creator);line-height:1;}
+.lb-first-lbl{font-size:var(--f-s);color:var(--text-3);}
+.lb-progress{background:var(--outline-v);border-radius:var(--r-full);height:4px;overflow:hidden;}
+.lb-progress-fill{height:100%;border-radius:var(--r-full);background:var(--brand);width:100%;}
 .lb-rest{display:flex;flex-direction:column;gap:var(--sp3);}
 .lb-row{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) var(--sp5);display:flex;align-items:center;gap:var(--sp4);}
-.lb-rn{font-size:var(--f-xs);font-weight:600;color:var(--text-3);min-width:18px;text-align:center;}
+.lb-rn{font-size:var(--f-xs);font-weight:600;color:var(--text-3);min-width:18px;text-align:center;flex-shrink:0;}
 .lb-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;}
 .lb-info{flex:1;min-width:0;}
 .lb-name{font-size:var(--f-s);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .lb-id{font-size:var(--f-xs);color:var(--text-3);}
 .lb-bar{flex:2;background:var(--outline-v);border-radius:var(--r-full);height:3px;overflow:hidden;min-width:40px;}
 .lb-fill{height:100%;border-radius:var(--r-full);background:var(--brand);transition:width 0.5s ease;}
-.lb-v{font-size:var(--f-l);font-weight:600;color:var(--creator);text-align:right;flex-shrink:0;min-width:40px;}
+.lb-v{font-size:var(--f-l);font-weight:600;color:var(--creator);text-align:right;flex-shrink:0;min-width:44px;}
 .lb-ts{font-size:11px;color:var(--text-3);text-align:right;margin-top:var(--sp4);}
 
 .toast{position:fixed;bottom:var(--sp6);left:50%;transform:translateX(-50%) translateY(60px);background:var(--container);border:1px solid rgba(0,210,190,0.4);border-radius:var(--r-full);padding:var(--sp3) var(--sp6);font-size:var(--f-xs);color:var(--brand);font-weight:600;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);z-index:99;pointer-events:none;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 </style>
-
+</head>
+<body>
 <div class="page">
+
+  <div class="lv-tabbar" id="lv-tabbar"></div>
 
   <div class="hero">
     <div class="live-badge"><span class="live-dot"></span>投票進行中</div>
@@ -142,45 +159,37 @@ body{background:var(--surface);color:var(--text-1);font-family:'Noto Sans TC','P
     </div>
   </div>
 
-  <div class="sec">
-    <div class="sec-lbl">我的身份</div>
-    <div class="id-card">
-      <div class="lv-badge"><div class="lv-n" id="dlv">35</div><div class="lv-l">LV</div></div>
-      <div class="id-info">
-        <div class="id-name">@SkyWatcher_Lin</div>
-        <div class="id-role" id="drole">資深決策者</div>
+  <div id="main-wrap" style="position:relative;">
+    <div class="two-col">
+      <div class="id-card">
+        <div>
+          <div class="id-lv" id="dlv-text">Lv.35</div>
+          <div class="id-name">@SkyWatcher_Lin</div>
+        </div>
+        <div class="ticket-block">
+          <div class="ticket-top">
+            <span class="ticket-remain" id="rem-n">2</span>
+            <span class="ticket-slash">/</span>
+            <span class="ticket-total" id="tot-n">2</span>
+          </div>
+          <div class="ticket-lbl">張票可分配</div>
+          <div class="ticket-bar"><div class="ticket-fill" id="bar-fill" style="width:100%"></div></div>
+        </div>
       </div>
-      <div class="vote-chip"><div class="vc-n" id="dv">2</div><div class="vc-l">決策票</div></div>
-    </div>
-    <div class="lv-row">
-      <span>切換等級預覽：</span>
-      <select id="lv-sel" style="background:var(--container);border:1px solid var(--outline-v);color:var(--text-1);border-radius:var(--r-xs);padding:3px var(--sp3);font-size:var(--f-xs);font-family:'Noto Sans TC',sans-serif;outline:none;cursor:pointer;">
-        <option value="10">Lv.10（未達門檻）</option>
-        <option value="25">Lv.25（1 票）</option>
-        <option value="35" selected>Lv.35（2 票）</option>
-        <option value="45">Lv.45（3 票）</option>
-        <option value="75">Lv.75（6 票）</option>
-        <option value="100">Lv.100（9 票）</option>
-      </select>
-    </div>
-  </div>
 
-  <div class="sec" id="vsec" style="position:relative;">
-    <div class="sec-lbl">選擇主播投票</div>
-    <div class="input-wrap" style="margin-bottom:var(--sp3);">
-      <input class="field" id="s-in" placeholder="搜尋主播名稱或輸入 ID…" autocomplete="off" oninput="onSearch(this.value)" onfocus="onSearch(this.value)"/>
-      <span class="field-icon">🔍</span>
-    </div>
-    <div class="dropdown" id="drop"></div>
-    <div id="vl-wrap" style="margin-bottom:var(--sp4);"><div class="empty-hint">點選主播名稱即可加入投票</div></div>
-    <div class="remain-block">
-      <div class="rb-top">
-        <span class="rb-lbl">剩餘票數</span>
-        <span><span class="rb-val" id="rem-n">2</span><span class="rb-total"> / <span id="tot-n">2</span></span></span>
+      <div class="search-card">
+        <div class="search-title">選擇主播投票</div>
+        <div class="drop-anchor">
+          <div class="input-wrap">
+            <input class="field" id="s-in" placeholder="搜尋主播或 ID" autocomplete="off" oninput="onSearch(this.value)" onfocus="onSearch(this.value)"/>
+            <span class="field-icon">🔍</span>
+          </div>
+          <div class="dropdown" id="drop"></div>
+        </div>
+        <div class="search-hint">點選名稱即可加入投票</div>
       </div>
-      <div class="track"><div class="fill" id="bar-fill" style="width:100%"></div></div>
     </div>
-    <button class="submit-btn" id="sub-btn" onclick="onSubmit()" disabled>確認投票</button>
+
     <div class="locked" id="lock" style="display:none;">
       <div class="lo-ico">🔒</div>
       <div class="lo-t">尚未達到投票資格</div>
@@ -188,12 +197,26 @@ body{background:var(--surface);color:var(--text-1);font-family:'Noto Sans TC','P
     </div>
   </div>
 
+  <div class="vote-section">
+    <div class="vote-box">
+      <div class="vote-box-header">
+        <span class="vote-box-title">投票名單</span>
+        <span class="vote-box-count" id="vote-count">0 位主播</span>
+      </div>
+      <div id="vl-inner"><div class="empty-hint">搜尋並點選主播後即可分配票數</div></div>
+    </div>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="submit-btn" id="sub-btn" onclick="onSubmit()" disabled>確認投票</button>
+  </div>
+
   <div class="divider"></div>
 
-  <div class="sec">
-    <div class="sec-lbl" style="display:flex;justify-content:space-between;align-items:center;">
-      <span>本週即時榜單</span>
-      <span style="font-size:11px;font-weight:400;letter-spacing:0;color:var(--text-3);">加權票數</span>
+  <div class="lb-section">
+    <div class="sec-header">
+      <span class="sec-lbl">本週即時榜單</span>
+      <span class="sec-sub">加權票數</span>
     </div>
     <div id="lb-first"></div>
     <div class="lb-rest" id="lb-rest"></div>
@@ -205,6 +228,14 @@ body{background:var(--surface);color:var(--text-1);font-family:'Noto Sans TC','P
 <div class="toast" id="toast"></div>
 
 <script>
+const LEVELS=[
+  {lv:10,label:'Lv.10'},
+  {lv:25,label:'Lv.25'},
+  {lv:35,label:'Lv.35'},
+  {lv:45,label:'Lv.45'},
+  {lv:75,label:'Lv.75'},
+  {lv:100,label:'Lv.100'},
+];
 const ANCHORS=[
   {id:'ANC001',name:'月見星空',color:'#00D2BE',bg:'rgba(0,210,190,0.15)',followers:'12.4萬',votes:1842},
   {id:'ANC002',name:'霓虹雨季',color:'#F6418D',bg:'rgba(246,65,141,0.15)',followers:'9.8萬',votes:1573},
@@ -216,41 +247,42 @@ const ANCHORS=[
   {id:'ANC008',name:'深海燈塔',color:'#FFA500',bg:'rgba(255,165,0,0.15)',followers:'2.4萬',votes:287},
 ];
 let lbData=[...ANCHORS].sort((a,b)=>b.votes-a.votes);
-const MEDALS=['🥇','🥈','🥉'];
-
 function calcV(lv){return lv<20?0:Math.min(9,1+Math.floor((lv-20)/10));}
 let curLv=35,totalV=2,vMap={};
-
 function remain(){return totalV-Object.values(vMap).reduce((s,v)=>s+v.votes,0);}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
 
+function renderTabs(){
+  document.getElementById('lv-tabbar').innerHTML=LEVELS.map(l=>
+    `<div class="lv-tab${l.lv===curLv?' active':''}" onclick="switchLv(${l.lv})">${l.label}</div>`
+  ).join('');
+}
+function switchLv(lv){
+  curLv=lv;totalV=calcV(lv);vMap={};
+  renderTabs();renderVoteList();updateStatus();renderDropdown(document.getElementById('s-in').value);
+}
 function updateStatus(){
-  document.getElementById('dlv').textContent=curLv;
-  document.getElementById('dv').textContent=totalV;
+  document.getElementById('dlv-text').textContent='Lv.'+curLv;
   document.getElementById('tot-n').textContent=totalV;
-  const roles={10:'觀看身份（無投票權）',25:'正式決策圈成員',35:'資深決策者',45:'關鍵票源',75:'核心成員',100:'核心理事會'};
-  document.getElementById('drole').textContent=roles[curLv]||'資深決策者';
   document.getElementById('lock').style.display=curLv<20?'flex':'none';
   updateBar();updateBtn();
 }
-
 function updateBar(){
   const r=remain();
-  document.getElementById('bar-fill').style.width=(totalV===0?100:Math.round((r/totalV)*100))+'%';
   document.getElementById('rem-n').textContent=r;
+  document.getElementById('bar-fill').style.width=(totalV===0?100:Math.round((r/totalV)*100))+'%';
 }
-
 function updateBtn(){
   const used=Object.values(vMap).reduce((s,v)=>s+v.votes,0);
   document.getElementById('sub-btn').disabled=used===0||curLv<20;
 }
-
 function renderVoteList(){
-  const wrap=document.getElementById('vl-wrap');
+  const inner=document.getElementById('vl-inner');
   const ids=Object.keys(vMap);
-  if(!ids.length){wrap.innerHTML='<div class="empty-hint">點選主播名稱即可加入投票</div>';return;}
+  document.getElementById('vote-count').textContent=ids.length+' 位主播';
+  if(!ids.length){inner.innerHTML='<div class="empty-hint">搜尋並點選主播後即可分配票數</div>';return;}
   const r=remain();
-  wrap.innerHTML='<div class="vote-list">'+ids.map(id=>{
+  inner.innerHTML='<div class="vote-list">'+ids.map(id=>{
     const{anchor,votes}=vMap[id];
     const init=anchor.name.slice(0,2);
     return`<div class="vi${votes>0?' active':''}">
@@ -265,7 +297,6 @@ function renderVoteList(){
     </div>`;
   }).join('')+'</div>';
 }
-
 function renderDropdown(val){
   const drop=document.getElementById('drop');
   const res=val&&val.trim()
@@ -277,19 +308,13 @@ function renderDropdown(val){
     const sel=!!vMap[a.id];
     return`<div class="drop-item${sel?' selected':''}" onclick="${sel?'':'clickAnchor('+JSON.stringify(a).replace(/"/g,"'")+')'}" style="${sel?'cursor:default':''}">
       <div class="av" style="background:${a.bg};color:${a.color}">${init}</div>
-      <div class="di-info">
-        <div class="di-name">${a.name}</div>
-        <div class="di-id">ID：${a.id}</div>
-        <div class="di-followers">${a.followers} 粉絲</div>
-      </div>
+      <div style="flex:1;min-width:0;"><div class="di-name">${a.name}</div><div class="di-sub">${a.followers} 粉絲</div></div>
       <div class="di-check">${sel?'✓':''}</div>
     </div>`;
   }).join('');
   drop.className='dropdown open';
 }
-
 function onSearch(val){renderDropdown(val);}
-
 function clickAnchor(a){
   if(vMap[a.id])return;
   if(remain()<=0){showToast('已無剩餘票數可分配');return;}
@@ -297,20 +322,17 @@ function clickAnchor(a){
   renderVoteList();updateBar();updateBtn();
   renderDropdown(document.getElementById('s-in').value);
 }
-
 function adj(id,d){
   if(!vMap[id])return;
   if(d>0&&remain()<=0){showToast('已無剩餘票數');return;}
   vMap[id].votes=Math.max(0,vMap[id].votes+d);
   renderVoteList();updateBar();updateBtn();
 }
-
 function rmAnchor(id){
   delete vMap[id];
   renderVoteList();updateBar();updateBtn();
   renderDropdown(document.getElementById('s-in').value);
 }
-
 function onSubmit(){
   const items=Object.values(vMap).filter(v=>v.votes>0);
   if(!items.length)return;
@@ -319,28 +341,27 @@ function onSubmit(){
   showToast('決策投票已送出');
   setTimeout(()=>{vMap={};renderVoteList();updateBar();updateBtn();renderDropdown(document.getElementById('s-in').value);},1600);
 }
-
 function renderLb(){
   lbData.sort((a,b)=>b.votes-a.votes);
   const max=lbData[0].votes;
   const first=lbData[0];
-  const rest=lbData.slice(1);
-
   const fi=first.name.slice(0,2);
   document.getElementById('lb-first').innerHTML=`<div class="lb-first">
-    <div class="lb-first-medal">🥇</div>
-    <div class="lb-first-av" style="background:${first.bg};color:${first.color}">${fi}</div>
-    <div class="lb-first-info">
-      <div class="lb-first-name">${first.name}</div>
-      <div class="lb-first-id">ID：${first.id}</div>
+    <div class="lb-first-top">
+      <div class="lb-first-medal">🥇</div>
+      <div class="lb-first-av" style="background:${first.bg};color:${first.color}">${fi}</div>
+      <div class="lb-first-info">
+        <div class="lb-first-name">${first.name}</div>
+        <div class="lb-first-id">ID：${first.id}</div>
+      </div>
     </div>
-    <div class="lb-first-right">
+    <div class="lb-votes-row">
       <div class="lb-first-votes">${first.votes.toLocaleString()}</div>
       <div class="lb-first-lbl">票</div>
     </div>
+    <div class="lb-progress"><div class="lb-progress-fill"></div></div>
   </div>`;
-
-  document.getElementById('lb-rest').innerHTML=rest.map((a,i)=>{
+  document.getElementById('lb-rest').innerHTML=lbData.slice(1).map((a,i)=>{
     const init=a.name.slice(0,2);
     const pct=Math.round((a.votes/max)*100);
     const medal=i===0?'🥈':i===1?'🥉':'';
@@ -352,21 +373,13 @@ function renderLb(){
       <span class="lb-v">${a.votes.toLocaleString()}</span>
     </div>`;
   }).join('');
-
   const now=new Date();
   document.getElementById('lbts').textContent=`更新於 ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
 }
-
-document.getElementById('lv-sel').addEventListener('change',function(){
-  curLv=parseInt(this.value);totalV=calcV(curLv);vMap={};
-  renderVoteList();updateStatus();renderDropdown(document.getElementById('s-in').value);
-});
-
 document.addEventListener('click',function(e){
-  if(!e.target.closest('#vsec .input-wrap')&&!e.target.closest('#drop'))
+  if(!e.target.closest('.drop-anchor'))
     document.getElementById('drop').className='dropdown';
 });
-
 (function(){
   const end=new Date();
   end.setDate(end.getDate()+(7-end.getDay())%7||7);
@@ -381,6 +394,7 @@ document.addEventListener('click',function(e){
   }
   tick();setInterval(tick,1000);
 })();
-
-updateStatus();renderLb();
+renderTabs();updateStatus();renderLb();
 </script>
+</body>
+</html>
