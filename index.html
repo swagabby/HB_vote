@@ -103,12 +103,12 @@ body{color:var(--text-1);font-family:'Noto Sans TC','PingFang TC',sans-serif;fon
 
 .submit-wrap{padding:var(--sp4) var(--sp5) 0;}
 .submit-btn{
-  width:100%;padding:18px var(--sp5);
+  width:100%;padding:12px var(--sp5);
   background:#00D2BE;
-  border:none;border-radius:var(--r-m);
+  border:none;border-radius:var(--r-s);
   color:#191919;
-  font-family:'Noto Sans TC',sans-serif;font-size:20px;font-weight:600;
-  cursor:pointer;letter-spacing:0.06em;
+  font-family:'Noto Sans TC',sans-serif;font-size:var(--f-m);font-weight:600;
+  cursor:pointer;letter-spacing:0.04em;
   transition:opacity 0.15s,transform 0.1s;
 }
 .submit-btn:hover:not([disabled]){opacity:0.85;transform:translateY(-1px);}
@@ -202,6 +202,16 @@ body{color:var(--text-1);font-family:'Noto Sans TC','PingFang TC',sans-serif;fon
     </div>
   </div>
 
+  <div class="history-section" id="history-section" style="display:none;">
+    <div class="history-box">
+      <div class="history-header">
+        <span class="history-title"><span class="history-dot"></span>本次投票紀錄</span>
+        <span class="history-time" id="history-time"></span>
+      </div>
+      <div id="history-body"></div>
+    </div>
+  </div>
+
   <div id="main-wrap" style="position:relative;">
     <div class="two-col">
       <div class="id-card">
@@ -250,16 +260,6 @@ body{color:var(--text-1);font-family:'Noto Sans TC','PingFang TC',sans-serif;fon
 
   <div class="submit-wrap">
     <button class="submit-btn" id="sub-btn" onclick="onSubmit()" disabled>確認投票</button>
-  </div>
-
-  <div class="history-section" id="history-section" style="display:none;">
-    <div class="history-box">
-      <div class="history-header">
-        <span class="history-title"><span class="history-dot"></span>本次投票紀錄</span>
-        <span class="history-time" id="history-time"></span>
-      </div>
-      <div id="history-body"></div>
-    </div>
   </div>
 
   <div class="divider"></div>
