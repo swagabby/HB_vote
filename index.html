@@ -1,0 +1,386 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --brand:#00D2BE;--brand-subtle:rgba(0,210,190,0.12);
+  --creator:#FFD100;
+  --surface:#191919;--container:#232323;--container-v:rgba(71,71,71,0.4);
+  --outline:#474747;--outline-v:rgba(71,71,71,0.4);
+  --text-1:#FFFFFF;--text-2:#C8C8C8;--text-3:#9B9B9B;--text-off:rgba(255,255,255,0.4);
+  --sp2:4px;--sp3:8px;--sp4:12px;--sp5:16px;--sp6:24px;--sp7:32px;--sp8:40px;--sp9:48px;
+  --r-xs:4px;--r-s:8px;--r-m:12px;--r-full:1000px;
+  --f-xs:12px;--f-s:14px;--f-m:16px;--f-l:18px;--f-xl:20px;--f-xxl:22px;
+}
+body{background:var(--surface);color:var(--text-1);font-family:'Noto Sans TC','PingFang TC',sans-serif;font-size:var(--f-s);font-weight:400;}
+.page{background:var(--surface);padding-bottom:var(--sp9);}
+
+.hero{background:var(--container);border-bottom:1px solid var(--outline-v);padding:var(--sp6) var(--sp5) var(--sp7);text-align:center;position:relative;}
+.hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100px;height:2px;background:var(--brand);border-radius:var(--r-full);}
+.live-badge{display:inline-flex;align-items:center;gap:var(--sp2);background:rgba(0,210,190,0.1);border:1px solid rgba(0,210,190,0.3);border-radius:var(--r-full);padding:2px var(--sp4);font-size:var(--f-xs);color:var(--brand);font-weight:600;margin-bottom:var(--sp4);letter-spacing:0.04em;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+.hero-eyebrow{font-size:var(--f-xs);color:var(--text-3);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:var(--sp3);}
+.hero-title{font-size:28px;font-weight:600;color:var(--text-1);line-height:1.2;margin-bottom:var(--sp4);}
+.hero-title em{font-style:normal;color:var(--brand);}
+.hero-sub{font-size:var(--f-xs);color:var(--text-3);line-height:1.7;margin-bottom:var(--sp6);}
+
+.cd-row{display:flex;justify-content:center;gap:var(--sp3);}
+.cd-box{background:var(--surface);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp3) var(--sp4);text-align:center;min-width:52px;}
+.cd-n{font-size:var(--f-xxl);font-weight:600;color:var(--brand);line-height:1;}
+.cd-l{font-size:10px;color:var(--text-3);letter-spacing:0.06em;margin-top:2px;}
+
+.sec{padding:var(--sp6) var(--sp5) 0;}
+.sec-lbl{font-size:var(--f-xs);font-weight:600;color:var(--text-3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--sp4);}
+
+.id-card{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-m);padding:var(--sp5);display:flex;align-items:center;gap:var(--sp4);}
+.lv-badge{width:48px;height:48px;border-radius:50%;border:2px solid var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--brand-subtle);flex-shrink:0;}
+.lv-n{font-size:var(--f-xl);font-weight:600;color:var(--brand);line-height:1;}
+.lv-l{font-size:9px;color:var(--brand);opacity:0.7;letter-spacing:0.04em;}
+.id-info{flex:1;min-width:0;}
+.id-name{font-size:var(--f-m);font-weight:600;margin-bottom:2px;}
+.id-role{font-size:var(--f-xs);color:var(--text-3);}
+.vote-chip{background:var(--container-v);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp3) var(--sp4);text-align:center;flex-shrink:0;}
+.vc-n{font-size:var(--f-xxl);font-weight:600;color:var(--creator);line-height:1;}
+.vc-l{font-size:10px;color:var(--text-3);margin-top:1px;}
+.lv-row{margin-top:var(--sp3);display:flex;align-items:center;gap:var(--sp3);}
+.lv-row span{font-size:var(--f-xs);color:var(--text-3);}
+
+.input-wrap{position:relative;}
+.field{width:100%;background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) 36px var(--sp4) var(--sp5);font-size:var(--f-s);color:var(--text-1);font-family:'Noto Sans TC',sans-serif;outline:none;transition:border-color 0.18s;}
+.field:focus{border-color:var(--brand);}
+.field::placeholder{color:var(--text-3);}
+.field-icon{position:absolute;right:var(--sp4);top:50%;transform:translateY(-50%);color:var(--text-3);font-size:15px;pointer-events:none;}
+
+.dropdown{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);overflow:hidden;margin-top:var(--sp2);display:none;}
+.dropdown.open{display:block;}
+.drop-item{display:flex;align-items:center;gap:var(--sp4);padding:var(--sp4) var(--sp5);cursor:pointer;border-bottom:1px solid var(--outline-v);transition:background 0.15s;}
+.drop-item:last-child{border-bottom:none;}
+.drop-item:hover{background:rgba(0,210,190,0.06);}
+.drop-item.selected{background:rgba(0,210,190,0.08);cursor:default;}
+.av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--f-xs);font-weight:600;flex-shrink:0;}
+.di-info{flex:1;min-width:0;}
+.di-name{font-size:var(--f-s);font-weight:600;}
+.di-id{font-size:var(--f-xs);color:var(--text-3);}
+.di-followers{font-size:11px;color:var(--text-3);margin-top:1px;}
+.di-check{font-size:13px;color:var(--brand);flex-shrink:0;width:20px;text-align:center;}
+
+.vote-list{display:flex;flex-direction:column;gap:var(--sp3);}
+.vi{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) var(--sp5);display:flex;align-items:center;gap:var(--sp4);}
+.vi.active{border-color:rgba(0,210,190,0.35);}
+.vi-info{flex:1;min-width:0;}
+.vi-name{font-size:var(--f-s);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vi-id{font-size:var(--f-xs);color:var(--text-3);}
+.vctrl{display:flex;align-items:center;gap:var(--sp3);}
+.cb{width:28px;height:28px;border-radius:50%;border:1px solid var(--outline-v);background:var(--container-v);color:var(--text-2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.12s;}
+.cb:hover{background:rgba(255,255,255,0.07);}
+.cb:disabled{opacity:0.25;cursor:not-allowed;}
+.vn{font-size:var(--f-xxl);font-weight:600;color:var(--creator);min-width:22px;text-align:center;}
+.rm-btn{width:22px;height:22px;border-radius:50%;border:none;background:rgba(207,4,4,0.12);color:#CF7070;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:var(--sp2);}
+.rm-btn:hover{background:rgba(207,4,4,0.22);}
+
+.remain-block{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) var(--sp5);}
+.rb-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--sp3);}
+.rb-lbl{font-size:var(--f-xs);color:var(--text-3);}
+.rb-val{font-size:var(--f-xl);font-weight:600;color:var(--creator);}
+.rb-total{font-size:var(--f-xs);color:var(--text-3);}
+.track{background:var(--outline-v);border-radius:var(--r-full);height:4px;overflow:hidden;}
+.fill{height:100%;border-radius:var(--r-full);background:var(--brand);transition:width 0.3s ease;}
+.empty-hint{background:var(--container);border:1px dashed var(--outline-v);border-radius:var(--r-s);padding:var(--sp8) var(--sp5);text-align:center;color:var(--text-3);font-size:var(--f-xs);}
+
+.submit-btn{width:100%;padding:var(--sp4) var(--sp5);background:var(--brand);border:none;border-radius:var(--r-s);color:#191919;font-family:'Noto Sans TC',sans-serif;font-size:var(--f-m);font-weight:600;cursor:pointer;transition:opacity 0.15s,transform 0.1s;margin-top:var(--sp4);}
+.submit-btn:hover:not(:disabled){opacity:0.85;transform:translateY(-1px);}
+.submit-btn:disabled{background:var(--outline-v);color:var(--text-off);cursor:not-allowed;transform:none;}
+
+.locked{position:absolute;inset:0;background:rgba(25,25,25,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:var(--sp6);z-index:10;border-radius:var(--r-m);}
+.lo-ico{font-size:2rem;margin-bottom:var(--sp4);}
+.lo-t{font-size:var(--f-m);font-weight:600;color:var(--brand);margin-bottom:var(--sp3);}
+.lo-d{font-size:var(--f-xs);color:var(--text-3);line-height:1.8;}
+
+.divider{height:1px;background:var(--outline-v);margin:var(--sp6) var(--sp5) 0;}
+
+.lb-first{background:var(--container);border:1px solid rgba(0,210,190,0.4);border-radius:var(--r-m);padding:var(--sp5);display:flex;align-items:center;gap:var(--sp5);margin-bottom:var(--sp4);position:relative;overflow:hidden;}
+.lb-first::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--brand);}
+.lb-first-medal{font-size:28px;flex-shrink:0;}
+.lb-first-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--f-m);font-weight:600;flex-shrink:0;border:2px solid rgba(0,210,190,0.4);}
+.lb-first-info{flex:1;min-width:0;}
+.lb-first-name{font-size:var(--f-l);font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-first-id{font-size:var(--f-xs);color:var(--text-3);}
+.lb-first-right{text-align:right;flex-shrink:0;}
+.lb-first-votes{font-size:28px;font-weight:600;color:var(--creator);line-height:1;}
+.lb-first-lbl{font-size:var(--f-xs);color:var(--text-3);margin-top:2px;}
+
+.lb-rest{display:flex;flex-direction:column;gap:var(--sp3);}
+.lb-row{background:var(--container);border:1px solid var(--outline-v);border-radius:var(--r-s);padding:var(--sp4) var(--sp5);display:flex;align-items:center;gap:var(--sp4);}
+.lb-rn{font-size:var(--f-xs);font-weight:600;color:var(--text-3);min-width:18px;text-align:center;}
+.lb-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;}
+.lb-info{flex:1;min-width:0;}
+.lb-name{font-size:var(--f-s);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-id{font-size:var(--f-xs);color:var(--text-3);}
+.lb-bar{flex:2;background:var(--outline-v);border-radius:var(--r-full);height:3px;overflow:hidden;min-width:40px;}
+.lb-fill{height:100%;border-radius:var(--r-full);background:var(--brand);transition:width 0.5s ease;}
+.lb-v{font-size:var(--f-l);font-weight:600;color:var(--creator);text-align:right;flex-shrink:0;min-width:40px;}
+.lb-ts{font-size:11px;color:var(--text-3);text-align:right;margin-top:var(--sp4);}
+
+.toast{position:fixed;bottom:var(--sp6);left:50%;transform:translateX(-50%) translateY(60px);background:var(--container);border:1px solid rgba(0,210,190,0.4);border-radius:var(--r-full);padding:var(--sp3) var(--sp6);font-size:var(--f-xs);color:var(--brand);font-weight:600;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);z-index:99;pointer-events:none;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="live-badge"><span class="live-dot"></span>投票進行中</div>
+    <div class="hero-eyebrow">Official Home Banner Vote</div>
+    <div class="hero-title">這次的看板，<br><em>你說了算</em></div>
+    <div class="hero-sub">Lv.20+ 會員限定 · 你的一票決定誰登上首頁</div>
+    <div class="cd-row">
+      <div class="cd-box"><div class="cd-n" id="cd-d">09</div><div class="cd-l">DAYS</div></div>
+      <div class="cd-box"><div class="cd-n" id="cd-h">14</div><div class="cd-l">HRS</div></div>
+      <div class="cd-box"><div class="cd-n" id="cd-m">32</div><div class="cd-l">MIN</div></div>
+      <div class="cd-box"><div class="cd-n" id="cd-s">07</div><div class="cd-l">SEC</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-lbl">我的身份</div>
+    <div class="id-card">
+      <div class="lv-badge"><div class="lv-n" id="dlv">35</div><div class="lv-l">LV</div></div>
+      <div class="id-info">
+        <div class="id-name">@SkyWatcher_Lin</div>
+        <div class="id-role" id="drole">資深決策者</div>
+      </div>
+      <div class="vote-chip"><div class="vc-n" id="dv">2</div><div class="vc-l">決策票</div></div>
+    </div>
+    <div class="lv-row">
+      <span>切換等級預覽：</span>
+      <select id="lv-sel" style="background:var(--container);border:1px solid var(--outline-v);color:var(--text-1);border-radius:var(--r-xs);padding:3px var(--sp3);font-size:var(--f-xs);font-family:'Noto Sans TC',sans-serif;outline:none;cursor:pointer;">
+        <option value="10">Lv.10（未達門檻）</option>
+        <option value="25">Lv.25（1 票）</option>
+        <option value="35" selected>Lv.35（2 票）</option>
+        <option value="45">Lv.45（3 票）</option>
+        <option value="75">Lv.75（6 票）</option>
+        <option value="100">Lv.100（9 票）</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sec" id="vsec" style="position:relative;">
+    <div class="sec-lbl">選擇主播投票</div>
+    <div class="input-wrap" style="margin-bottom:var(--sp3);">
+      <input class="field" id="s-in" placeholder="搜尋主播名稱或輸入 ID…" autocomplete="off" oninput="onSearch(this.value)" onfocus="onSearch(this.value)"/>
+      <span class="field-icon">🔍</span>
+    </div>
+    <div class="dropdown" id="drop"></div>
+    <div id="vl-wrap" style="margin-bottom:var(--sp4);"><div class="empty-hint">點選主播名稱即可加入投票</div></div>
+    <div class="remain-block">
+      <div class="rb-top">
+        <span class="rb-lbl">剩餘票數</span>
+        <span><span class="rb-val" id="rem-n">2</span><span class="rb-total"> / <span id="tot-n">2</span></span></span>
+      </div>
+      <div class="track"><div class="fill" id="bar-fill" style="width:100%"></div></div>
+    </div>
+    <button class="submit-btn" id="sub-btn" onclick="onSubmit()" disabled>確認投票</button>
+    <div class="locked" id="lock" style="display:none;">
+      <div class="lo-ico">🔒</div>
+      <div class="lo-t">尚未達到投票資格</div>
+      <div class="lo-d">升級至 <strong style="color:var(--brand)">Lv.20</strong> 即可進入決策圈<br>決定官方首頁看板主播！</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec">
+    <div class="sec-lbl" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>本週即時榜單</span>
+      <span style="font-size:11px;font-weight:400;letter-spacing:0;color:var(--text-3);">加權票數</span>
+    </div>
+    <div id="lb-first"></div>
+    <div class="lb-rest" id="lb-rest"></div>
+    <div class="lb-ts" id="lbts"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ANCHORS=[
+  {id:'ANC001',name:'月見星空',color:'#00D2BE',bg:'rgba(0,210,190,0.15)',followers:'12.4萬',votes:1842},
+  {id:'ANC002',name:'霓虹雨季',color:'#F6418D',bg:'rgba(246,65,141,0.15)',followers:'9.8萬',votes:1573},
+  {id:'ANC003',name:'浮雲碎片',color:'#FFD100',bg:'rgba(255,209,0,0.15)',followers:'8.1萬',votes:1391},
+  {id:'ANC004',name:'SkyWatcher_K',color:'#60C4E8',bg:'rgba(96,196,232,0.15)',followers:'7.3萬',votes:1128},
+  {id:'ANC005',name:'黎明第七章',color:'#8238BA',bg:'rgba(130,56,186,0.15)',followers:'5.6萬',votes:876},
+  {id:'ANC006',name:'白鹿錦繡',color:'#15EA48',bg:'rgba(21,234,72,0.15)',followers:'4.2萬',votes:654},
+  {id:'ANC007',name:'NightOwlTV',color:'#FF7200',bg:'rgba(255,114,0,0.15)',followers:'3.1萬',votes:412},
+  {id:'ANC008',name:'深海燈塔',color:'#FFA500',bg:'rgba(255,165,0,0.15)',followers:'2.4萬',votes:287},
+];
+let lbData=[...ANCHORS].sort((a,b)=>b.votes-a.votes);
+const MEDALS=['🥇','🥈','🥉'];
+
+function calcV(lv){return lv<20?0:Math.min(9,1+Math.floor((lv-20)/10));}
+let curLv=35,totalV=2,vMap={};
+
+function remain(){return totalV-Object.values(vMap).reduce((s,v)=>s+v.votes,0);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+function updateStatus(){
+  document.getElementById('dlv').textContent=curLv;
+  document.getElementById('dv').textContent=totalV;
+  document.getElementById('tot-n').textContent=totalV;
+  const roles={10:'觀看身份（無投票權）',25:'正式決策圈成員',35:'資深決策者',45:'關鍵票源',75:'核心成員',100:'核心理事會'};
+  document.getElementById('drole').textContent=roles[curLv]||'資深決策者';
+  document.getElementById('lock').style.display=curLv<20?'flex':'none';
+  updateBar();updateBtn();
+}
+
+function updateBar(){
+  const r=remain();
+  document.getElementById('bar-fill').style.width=(totalV===0?100:Math.round((r/totalV)*100))+'%';
+  document.getElementById('rem-n').textContent=r;
+}
+
+function updateBtn(){
+  const used=Object.values(vMap).reduce((s,v)=>s+v.votes,0);
+  document.getElementById('sub-btn').disabled=used===0||curLv<20;
+}
+
+function renderVoteList(){
+  const wrap=document.getElementById('vl-wrap');
+  const ids=Object.keys(vMap);
+  if(!ids.length){wrap.innerHTML='<div class="empty-hint">點選主播名稱即可加入投票</div>';return;}
+  const r=remain();
+  wrap.innerHTML='<div class="vote-list">'+ids.map(id=>{
+    const{anchor,votes}=vMap[id];
+    const init=anchor.name.slice(0,2);
+    return`<div class="vi${votes>0?' active':''}">
+      <div class="av" style="background:${anchor.bg};color:${anchor.color}">${init}</div>
+      <div class="vi-info"><div class="vi-name">${anchor.name}</div><div class="vi-id">ID：${anchor.id}</div></div>
+      <div class="vctrl">
+        <button class="cb" onclick="adj('${id}',-1)" ${votes<=0?'disabled':''}>−</button>
+        <span class="vn">${votes}</span>
+        <button class="cb" onclick="adj('${id}',1)" ${r<=0?'disabled':''}>+</button>
+      </div>
+      <button class="rm-btn" onclick="rmAnchor('${id}')">✕</button>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function renderDropdown(val){
+  const drop=document.getElementById('drop');
+  const res=val&&val.trim()
+    ?ANCHORS.filter(a=>a.name.includes(val)||a.id.toLowerCase().includes(val.toLowerCase()))
+    :ANCHORS;
+  if(!res.length){drop.className='dropdown';return;}
+  drop.innerHTML=res.map(a=>{
+    const init=a.name.slice(0,2);
+    const sel=!!vMap[a.id];
+    return`<div class="drop-item${sel?' selected':''}" onclick="${sel?'':'clickAnchor('+JSON.stringify(a).replace(/"/g,"'")+')'}" style="${sel?'cursor:default':''}">
+      <div class="av" style="background:${a.bg};color:${a.color}">${init}</div>
+      <div class="di-info">
+        <div class="di-name">${a.name}</div>
+        <div class="di-id">ID：${a.id}</div>
+        <div class="di-followers">${a.followers} 粉絲</div>
+      </div>
+      <div class="di-check">${sel?'✓':''}</div>
+    </div>`;
+  }).join('');
+  drop.className='dropdown open';
+}
+
+function onSearch(val){renderDropdown(val);}
+
+function clickAnchor(a){
+  if(vMap[a.id])return;
+  if(remain()<=0){showToast('已無剩餘票數可分配');return;}
+  vMap[a.id]={anchor:a,votes:1};
+  renderVoteList();updateBar();updateBtn();
+  renderDropdown(document.getElementById('s-in').value);
+}
+
+function adj(id,d){
+  if(!vMap[id])return;
+  if(d>0&&remain()<=0){showToast('已無剩餘票數');return;}
+  vMap[id].votes=Math.max(0,vMap[id].votes+d);
+  renderVoteList();updateBar();updateBtn();
+}
+
+function rmAnchor(id){
+  delete vMap[id];
+  renderVoteList();updateBar();updateBtn();
+  renderDropdown(document.getElementById('s-in').value);
+}
+
+function onSubmit(){
+  const items=Object.values(vMap).filter(v=>v.votes>0);
+  if(!items.length)return;
+  items.forEach(({anchor,votes})=>{const f=lbData.find(a=>a.id===anchor.id);if(f)f.votes+=votes;});
+  renderLb();
+  showToast('決策投票已送出');
+  setTimeout(()=>{vMap={};renderVoteList();updateBar();updateBtn();renderDropdown(document.getElementById('s-in').value);},1600);
+}
+
+function renderLb(){
+  lbData.sort((a,b)=>b.votes-a.votes);
+  const max=lbData[0].votes;
+  const first=lbData[0];
+  const rest=lbData.slice(1);
+
+  const fi=first.name.slice(0,2);
+  document.getElementById('lb-first').innerHTML=`<div class="lb-first">
+    <div class="lb-first-medal">🥇</div>
+    <div class="lb-first-av" style="background:${first.bg};color:${first.color}">${fi}</div>
+    <div class="lb-first-info">
+      <div class="lb-first-name">${first.name}</div>
+      <div class="lb-first-id">ID：${first.id}</div>
+    </div>
+    <div class="lb-first-right">
+      <div class="lb-first-votes">${first.votes.toLocaleString()}</div>
+      <div class="lb-first-lbl">票</div>
+    </div>
+  </div>`;
+
+  document.getElementById('lb-rest').innerHTML=rest.map((a,i)=>{
+    const init=a.name.slice(0,2);
+    const pct=Math.round((a.votes/max)*100);
+    const medal=i===0?'🥈':i===1?'🥉':'';
+    return`<div class="lb-row">
+      <span class="lb-rn">${medal||i+3}</span>
+      <div class="lb-av" style="background:${a.bg};color:${a.color}">${init}</div>
+      <div class="lb-info"><div class="lb-name">${a.name}</div><div class="lb-id">ID：${a.id}</div></div>
+      <div class="lb-bar"><div class="lb-fill" style="width:${pct}%"></div></div>
+      <span class="lb-v">${a.votes.toLocaleString()}</span>
+    </div>`;
+  }).join('');
+
+  const now=new Date();
+  document.getElementById('lbts').textContent=`更新於 ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+}
+
+document.getElementById('lv-sel').addEventListener('change',function(){
+  curLv=parseInt(this.value);totalV=calcV(curLv);vMap={};
+  renderVoteList();updateStatus();renderDropdown(document.getElementById('s-in').value);
+});
+
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#vsec .input-wrap')&&!e.target.closest('#drop'))
+    document.getElementById('drop').className='dropdown';
+});
+
+(function(){
+  const end=new Date();
+  end.setDate(end.getDate()+(7-end.getDay())%7||7);
+  end.setHours(23,59,0,0);
+  function tick(){
+    const diff=Math.max(0,end-Date.now());
+    const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  }
+  tick();setInterval(tick,1000);
+})();
+
+updateStatus();renderLb();
+</script>
